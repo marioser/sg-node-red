@@ -1,0 +1,24 @@
+version: '3'  # Actualiza la versión a 3.8 para tener acceso a más características  
+
+services:  
+  node-red:  
+    image: miobox/ap-node-red:latest # Directorio donde se encuentra tu Dockerfile  
+    network_mode: bridge 
+    volumes:  
+      - resin-data:/data  # Volumen para persistir datos  
+    restart: always  
+    privileged: true  # Ajustar si estás en un tipo de red específica  
+    environment:
+      - TZ=America/Bogota  
+      - USERNAME=miobox  
+      - PASSWORD=miobox  
+      - ENCRYPTION_KEY=balena
+      - PORT=1880   
+    cap_add:  
+      - SYS_RAWIO  # Permisos adicionales si son necesarios  
+    ports:  
+      - "1880:1880"  # Esto puede ser redundante con network_mode: host  
+
+
+volumes:  
+  resin-data:  # 
